@@ -2,7 +2,6 @@ const User = require('../models/user')
 const todo = require('../models/todo')
 const jwt = require('jsonwebtoken')
 
-
 module.exports = {
 
   Login(req, res){
@@ -28,6 +27,8 @@ module.exports = {
                 res.status(400).json('wrong password')
 
               } else {
+
+                console.log('adanih login');
 
                 const jwtToken = jwt.sign({ email: req.body.email, id: user._id }, 'MYSUPERSECRET')
                 res.status(200).json({ jwtToken })
