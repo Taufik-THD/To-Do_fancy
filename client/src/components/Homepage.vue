@@ -43,8 +43,12 @@
       					<button class="btn waves-effect waves-light teal" type="submit" @click='login'>Connect</button>
       					<br>
       					<br>
-                <a class="waves-effect waves-light btn social facebook">
-                  <i class="fa fa-facebook"></i> Sign in with facebook</a>
+                  <facebook-login class="button"
+                    appId="1688687764518616"
+                    @login="getUserData"
+                    @get-initial-status="getUserData"
+                    style="padding-right:85px;">
+                  </facebook-login>
       				</center>
       			</div>
       		</form>
@@ -79,6 +83,7 @@
 
 <script>
 import axios from 'axios'
+import facebookLogin from 'facebook-login-vuejs';
 
 export default {
   created () {
@@ -92,6 +97,9 @@ export default {
     }
   },
   name: 'Homepage',
+  components: {
+    facebookLogin
+  },
   methods: {
     register(event){
       event.preventDefault()
@@ -125,6 +133,7 @@ export default {
       })
 
     },
+
     login(event){
       event.preventDefault()
 
@@ -170,12 +179,78 @@ export default {
       this.email=''
       this.password=''
     }
+  },
+
+  getUserData (response) {
+    console.log('ke hit kok');
+    FB.api(`/me`, {
+        fields: ['email', 'name']
+    }, function (profile) {
+        console.log('PROFILE ----> ', profile)
+        // axios.post('https://localhost:9000/users/loginfb', {
+        //   email: profile.email,
+        //   fullname: profile.name,
+        //   picture: profile.picture.data.url,
+        // })
+        //   .then(responseServer => {
+        //     console.log('data from server = ', responseServer.data.msg)
+        //   })
+        //   .catch(err => {
+        //     console.log(err)
+        //   })
+    })
   }
+
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.loginBtn {
+  box-sizing: border-box;
+  position: relative;
+  margin: 0.2em;
+  padding: 0 15px 0 46px;
+  text-align: left;
+  line-height: 34px;
+  white-space: nowrap;
+  border-radius: 0.9em;
+  font-size: 16px;
+  color: #FFF;
+}
+.loginBtn:before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 100%;
+}
+.loginBtn:focus {
+  outline: none;
+}
+.loginBtn:active {
+  box-shadow: inset 0 0 0 32px rgba(0,0,0,0.1);
+}
+
+
+/* Facebook */
+loginBtnfacebook {
+  background-color: #4C69BA;
+  background-image: linear-gradient(#4C69BA, #3B55A0);
+  /*font-family: "Helvetica neue", Helvetica Neue, Helvetica, Arial, sans-serif;*/
+  text-shadow: 0 -1px 0 #354C8C;
+}
+.loginBtn--facebook:before {
+  border-right: #364e92 2px solid;
+  background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_facebook.png') 6px 6px no-repeat;
+}
+.loginBtn--facebook:hover,
+.loginBtn--facebook:focus {
+  background-color: #5B7BD5;
+  background-image: linear-gradient(#5B7BD5, #4864B1);
+}
 
 .body-background{
   text-align: left;

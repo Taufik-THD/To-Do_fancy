@@ -2,12 +2,19 @@
     <div class="nav">
       <h1>ToDo.</h1>
       <br>
+      <br>
       <hr>
-      <a class="waves-effect waves-light btn-large" style="width:95%">Add New Task</a>
+      <div class="input-field col s6">
+        <i class="material-icons prefix">search</i>
+        <input id="icon_prefix" type="text" class="validate">
+        <label for="icon_prefix">Search</label>
+      </div>
+      <hr>
+      <a class="waves-effect waves-light btn-large" style="width:95%">Today</a>
       <br>
       <a class="waves-effect waves-light btn-large" style="width:95% ;margin-top:5px;">History</a>
       <br>
-      <div class="" style=" margin-top: 98%;">
+      <div class="" style=" margin-top: 55%;">
         <hr>
         <a class="waves-effect waves-light btn-large" style="width:95%;" @click='logoutUser'>Logout</a>
       </div>
@@ -65,7 +72,7 @@ export default {
 }
 
 .main {
-    margin-left: 200px; /* Same as the width of the sidenav */
+    margin-left: 200px;
 }
 
 @media screen and (max-height: 450px) {

@@ -21,6 +21,7 @@
             <div class="card-content">
               <p>{{ todo.activity }}</p>
             </div>
+            <hr>
           </div>
         </div>
       </div>
@@ -34,6 +35,9 @@ import axios from 'axios'
 
 export default{
   created(){
+    if (!localStorage.hasOwnProperty('authorization')) {
+      window.location.replace('/');
+    }
     this.getTodo()
   },
   data(){
