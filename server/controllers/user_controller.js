@@ -84,6 +84,12 @@ module.exports = {
 
     })
 
+  },
+
+  Loginfb (req, res) {
+
+    console.log("req.body");
+
   }
 
 }

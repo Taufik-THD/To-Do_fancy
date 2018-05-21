@@ -10,11 +10,11 @@
         <label for="icon_prefix">Search</label>
       </div>
       <hr>
-      <a class="waves-effect waves-light btn-large" style="width:95%">Today</a>
+      <a class="waves-effect waves-light btn-large" style="width:95%" @click='showAll'>Show All Todo</a>
       <br>
-      <a class="waves-effect waves-light btn-large" style="width:95% ;margin-top:5px;">History</a>
+      <a class="waves-effect waves-light btn-large" style="width:95% ;margin-top:5px;" @click='historyPage'>History</a>
       <br>
-      <div class="" style=" margin-top: 55%;">
+      <div class="" style=" margin-top: 50%;">
         <hr>
         <a class="waves-effect waves-light btn-large" style="width:95%;" @click='logoutUser'>Logout</a>
       </div>
@@ -29,6 +29,9 @@ export default {
     }
   },
   methods: {
+    showAll(){
+      this.$router.push('/todo')
+    },
     logoutUser(){
       swal("Are you sure?", {
         dangerMode: true,
@@ -41,6 +44,9 @@ export default {
           location.reload();
         }
       })
+    },
+    historyPage(){
+      this.$router.push('/history')
     }
   }
 }

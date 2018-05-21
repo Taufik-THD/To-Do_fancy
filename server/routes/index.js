@@ -8,6 +8,4 @@ router.get('/', (req, res) => {
   console.log('index');
 });
 
-// router.post('/', registerOrLogin)
-
 module.exports = router;

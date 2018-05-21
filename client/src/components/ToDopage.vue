@@ -95,23 +95,6 @@ export default{
       })
     },
 
-    // todayTodo(){
-    //   const token = localStorage.getItem('authorization')
-    //
-    //   axios({
-    //     method: 'post',
-    //     url: 'http://localhost:9000/todo/today',
-    //     data: {token}
-    //   })
-    //   .then(dataTodo => {
-    //     this.dayToDo = dataTodo.data
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   })
-    //
-    // }
-
     updateDone(id){
       let myVal = setInterval(() => {
         axios({
@@ -120,6 +103,11 @@ export default{
           data: {id}
         })
         .then(success => {
+          swal({
+            title: "Yosh!",
+            text: "This activity is completed",
+            icon: "success",
+          });
           clearInterval(myVal)
           this.getTodo()
         })
@@ -151,8 +139,6 @@ export default{
             });
             this.getTodo()
           })
-        } else {
-          location.reload();
         }
       })
 

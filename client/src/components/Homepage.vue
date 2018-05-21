@@ -40,7 +40,7 @@
       				<br>
       				<center>
                 <a class="btn modal-action modal-close waves-effect waves-green btn-flat" @click='resetForm'>Cancel</a>
-      					<button class="btn waves-effect waves-light teal" type="submit" @click='login'>Connect</button>
+      					<button class="btn waves-effect waves-light teal" @click='login'>Connect</button>
       					<br>
       					<br>
                   <facebook-login class="button"
@@ -71,7 +71,7 @@
       				</div>
       				<center>
                 <br>
-      					<button class="btn waves-effect waves-light teal" type="submit" @click='register'>Submit</button>
+      					<button class="btn waves-effect waves-light teal" @click='register'>Submit</button>
       				</center>
       			</div>
       		</form>
@@ -134,9 +134,7 @@ export default {
 
     },
 
-    login(event){
-      event.preventDefault()
-
+    login(){
       const user = {
         email: this.email,
         password: this.password
@@ -178,28 +176,41 @@ export default {
     resetForm(){
       this.email=''
       this.password=''
-    }
-  },
+    },
 
-  getUserData (response) {
-    console.log('ke hit kok');
-    FB.api(`/me`, {
+    getUserData(){
+      FB.api(`/me`, {
         fields: ['email', 'name']
-    }, function (profile) {
-        console.log('PROFILE ----> ', profile)
-        // axios.post('https://localhost:9000/users/loginfb', {
-        //   email: profile.email,
-        //   fullname: profile.name,
-        //   picture: profile.picture.data.url,
-        // })
-        //   .then(responseServer => {
-        //     console.log('data from server = ', responseServer.data.msg)
-        //   })
-        //   .catch(err => {
-        //     console.log(err)
-        //   })
-    })
-  }
+      }, function (profile) {
+        const dataUser = {
+          email: profile.email,
+          fullname: profile.name
+        }
+
+        axios({
+          method: 'post',
+          url: 'http://localhost:3000/users/loginfb',
+          data: dataUser
+        })
+        .then((response) => {
+          user.email = ''
+          user.password = ''
+          const token = JSON.stringify(response.data.jwtToken)
+          localStorage.setItem('authorization', token);
+          this.$router.push('/todo')
+          location.reload();
+        })
+        .catch(err => {
+          swal({
+            text: "email/password is wrong!",
+            icon: "error",
+          });
+        })
+      })
+
+    }
+
+  },
 
 }
 </script>
